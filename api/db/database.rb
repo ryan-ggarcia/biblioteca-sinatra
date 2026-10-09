@@ -11,14 +11,14 @@ DB = Mysql2::Client.new(
 )
 class Database
   # INSERT, UPDATE, DELETE
-  def self.executa_comando(sql, *values)
+  def executa_comando(sql, *values)
     comando = DB.prepare(sql) # prepara o SQL com os ?
     comando.execute(*values) # preenche os ? com os valores passados, executa o SQL
     comando.affected_rows > 0 # útima linha executada pelo banco retorna (true/false)
   end
 
   # SELECT
-  def self.executa_select(sql, *values)
+  def executa_select(sql, *values)
     comando = DB.prepare(sql)
     return comando.execute.to_a if values.empty?
 
@@ -28,7 +28,7 @@ class Database
   end
 
   # RETORNAR ID
-  def self.executa_id(sql, *values)
+  def executa_id(sql, *values)
     comando = DB.prepare(sql)
     comando.execute(*values)
     comando.last_id
